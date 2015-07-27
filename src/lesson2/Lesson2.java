@@ -55,6 +55,11 @@ public class Lesson2 {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    List<String> lowerCaseList = list
+            .stream()
+            .map(String::toLowerCase)
+            .collect(Collectors.toList());
+    System.out.println(lowerCaseList);
   }
 
   /**
@@ -68,6 +73,11 @@ public class Lesson2 {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    List<String> oddLengthStrings = list
+            .stream()
+            .filter(word -> word.length() % 2 != 0)
+            .collect(Collectors.toList());
+    System.out.println(oddLengthStrings);
   }
 
   /**
@@ -81,6 +91,12 @@ public class Lesson2 {
         "The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
 
     /* YOUR CODE HERE */
+    String joinedStrings = list
+            .stream()
+            .skip(1)
+            .limit(3)
+            .collect(Collectors.joining("-"));
+    System.out.println(joinedStrings);
   }
 
   /**
@@ -90,6 +106,8 @@ public class Lesson2 {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+      long numLines = reader.lines().count();
+      System.out.println(numLines);
     }
   }
   
@@ -103,6 +121,13 @@ public class Lesson2 {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+      List<String> uniqueWords = reader
+              .lines()
+              .flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
+              .map(String::toLowerCase)
+              .distinct()
+              .collect(Collectors.toList());
+      System.out.println(uniqueWords);
     }
   }
   
@@ -115,6 +140,14 @@ public class Lesson2 {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+      List<String> uniqueWords = reader
+              .lines()
+              .flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
+              .map(String::toLowerCase)
+              .distinct()
+              .sorted()
+              .collect(Collectors.toList());
+      System.out.println(uniqueWords);
     }
   }
   
@@ -125,6 +158,14 @@ public class Lesson2 {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+      List<String> uniqueWords = reader
+              .lines()
+              .flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
+              .map(String::toLowerCase)
+              .distinct()
+              .sorted((word1, word2) -> Integer.compare(word1.length(), word2.length()))
+              .collect(Collectors.toList());
+      System.out.println(uniqueWords);
     }
   }
 
