@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -118,9 +119,12 @@ public class Lesson2 {
    * HINT: A regular expression, WORD_REGEXP, is already defined for your use.
    */
   private void exercise5() throws IOException {
+      Pattern pattern = Pattern.compile(WORD_REGEXP);
+
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
       /* YOUR CODE HERE */
+        /*
       List<String> uniqueWords = reader
               .lines()
               .flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
@@ -128,6 +132,18 @@ public class Lesson2 {
               .distinct()
               .collect(Collectors.toList());
       System.out.println(uniqueWords);
+      */
+        //There was discussion in the MOOC forum to use the Pattern class and  use pattern::splitAsStream
+        // vs Stream.of(line.split(WORD_REGEXP)).  With the Stream.of version the WORD_REGEXP is getting compiled for each line.
+        //With the Pattern class the WORD_REGEXP is compile upfront.  So, it is more efficient to use the pattern::splitAsStream
+        //since the regex is not being repeatedly compiled.
+        List <String> uniqueWords = reader
+                .lines()
+                .flatMap(pattern::splitAsStream)
+                .map(String::toLowerCase)
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(uniqueWords);
     }
   }
   
