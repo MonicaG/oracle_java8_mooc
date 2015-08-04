@@ -49,7 +49,7 @@ public class RandomWords {
 
     List<String> wordList = rand
             .ints(listSize, 0, sourceWords.size())
-            .peek(System.out::println)
+//            .peek(System.out::println)
             .mapToObj(sourceWords::get)
             .collect(Collectors.toList());
 

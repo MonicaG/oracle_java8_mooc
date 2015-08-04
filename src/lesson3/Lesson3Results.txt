@@ -3,6 +3,7 @@ For lesson3 part3 the requirement was to try parallel and sequential streams wit
 
 The parallel was faster for large sizes of input (i.e. 200,000) for all runs.
 Sequential was slightly faster with smaller size of input (i.e. 1000) for all runs.
-Distinct didn't seem to have an impact (was I using it right?).  It was the number of input that had the most impact on time,
-with parallel being much faster with the larger the input.
+Distinct slowed down the parallel processing. For a large number (100,000) it's result was roughly the same time as the sequential.
+It was the number of input that had the most impact on time, with parallel being much faster with the larger the input.
+Sequential was faster for smaller inputs.
 
